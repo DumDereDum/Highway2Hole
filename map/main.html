@@ -5,51 +5,55 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://api-maps.yandex.ru/2.1/?apikey=nokey&lang=ru_RU" type="text/javascript">
     </script>
+    <script type="text/javascript" src="data.json"></script>
     <script type="text/javascript">
+        
+        var mydata = JSON.parse(data);        
+        
+        
         ymaps.ready(init);
 
         function init() {
+            
             var myMap = new ymaps.Map("map", {
                     center: [56.320856, 43.973817],
                     zoom: 7
                 }, {
                     searchControlProvider: 'yandex#search'
                     //searchControlProvider: ''
-                }),
-        
-            // Создаем геообъект с типом геометрии "Точка".
-                myObject = new ymaps.GeoObject({
-                    // Описание геометрии.
-                    geometry: {
-                        type: "Point",
-                        coordinates: [55.429186, 42.499651]
-                    },
-                    // Свойства.
-                    properties: {
-                        // Контент метки.
-                        balloonContent: 'полезная информация?'
-                    }
-                }, {
-                    // Опции.
-                    // Иконка метки будет растягиваться под размер ее содержимого.
-                    preset: 'islands#dotIcon',
-                    iconColor: '#735184',
-                    // Метку можно перемещать.
-                    draggable: false
                 });
-        
-            myMap.geoObjects
-                .add(myObject);
                 
-            myMap.controls.remove('geolocationControl');
-            //myMap.controls.remove('typeSelector');
+                for(var item in mydata) {
+                
+                
+                
+                    var myObject = new ymaps.GeoObject({
+                        geometry: {
+                            type: "Point",
+                            coordinates: [mydata[item].location.latitude, mydata[item].location.longitude]
+                        },
+                        properties: {
+                            balloonContent: 'полезная информация?'
+                        }
+                    }, {
+                        preset: 'islands#dotIcon',
+                        iconColor: '#735184',
+                        draggable: false
+                    });
+                
+                    myMap.geoObjects
+                        .add(myObject);
+                    }
+                myMap.controls.remove('geolocationControl');
+                //myMap.controls.remove('typeSelector');
+            
                 
         }
     
     </script>
 </head>
 
-<body>
+<body onload="load()">
     <div id="map" style="min-width: 97.5vh; height: 97.5vh;"></div>
 </body>
 
