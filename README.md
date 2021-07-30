@@ -1,3 +1,3 @@
 # Highway2Hole
 
-![](https://github.com/DumDereDum/Highway2Hole/img/logo.png)
+![logo](https://github.com/DumDereDum/Highway2Hole/blob/main/img/logo.png)
