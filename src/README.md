@@ -12,7 +12,7 @@ Function: **find_damage( video )**
 
 * Input: **video** - 1 min of road video
 
-* Output: list of tuples like: **[ (frame1, time1), (frame2, time2), (frame3, time3), ... ]**, where **frame** - frame from video with detected pothole, **time** - time, when pothole was recorded on road
+* Output: list of tuples like: **[ (frame1, time1), (frame2, time2), (frame3, time3), ... ]**, where **frame** - frame from video with detected pothole (.png image file), **time** - time, when pothole was recorded on road
 
 
 
@@ -31,7 +31,7 @@ ID | PHOTO_PATH | TIME | GPS | IS_NEW
 Functions:
 
 * **add_pothole( (frame, time, gps) )** - add pothole to DB 
-  * ***frame*** - frame with pothole
+  * ***frame*** - frame with pothole (.png image file)
   * ***time*** - time, when pothole was recorded on road
   * ***gps*** - location of pothole
 * **get_new_potholes()** - returns list of tuples like:  **[ (frame1, time1, gps1), (frame2, time2, gps2), (frame3, time3,0 gps2), ... ]** and marks the returned potholes as `False` in IS_NEW field
