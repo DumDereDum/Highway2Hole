@@ -23,7 +23,7 @@ class DBMS:
         DBMS.__db.commit()
         
     def add_pothole(self, frame, time, gps):
-        photo_path = DBMS.__db_path + "\data\img_" + str(DBMS.__cur_id) + ".png"
+        photo_path = DBMS.__db_path + "\data\img\img_" + str(DBMS.__cur_id) + ".png"
         print(photo_path)
         cv2.imwrite(photo_path, frame)
         DBMS.__sql.execute("INSERT INTO RoadPits VALUES (?,?,?,?,?)",(DBMS.__cur_id, photo_path, time, gps, 1))
@@ -38,7 +38,7 @@ class DBMS:
             DBMS.__sql.execute('UPDATE RoadPits SET IS_NEW = ? WHERE ID = ?', (0,value[0]))
             DBMS.__db.commit()
             img = cv2.imread(value[1])
-            tpl = [img, value[2], value[3]]
+            tpl = [img, value[0], value[1], value[2], value[3]]
             print(tpl)
             lst.append(tpl)
         return lst
