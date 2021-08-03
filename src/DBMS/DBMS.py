@@ -4,10 +4,11 @@ import sys
 import cv2
 
 class DBMS:   
-    __db = sqlite3.connect('highway2hole.db')
+    __db = sqlite3.connect(__db_path + 'highway2hole.db')
     __sql = __db.cursor()
     __cur_id = 1
-    def __init__(self):
+    __db_path = None
+    def __init__(self, path):
         DBMS.__sql.execute("""CREATE TABLE IF NOT EXISTS RoadPits (
             ID integer,
             PHOTO_PATH text,
@@ -16,8 +17,10 @@ class DBMS:
             IS_NEW integer
         )""")
         DBMS.__db.commit()
+        DBMS.__db_path = path
     def add_pothole(self, frame, time, gps):
-        photo_path = "img/img_" + str(DBMS.__cur_id) + ".png"
+        photo_path = DBMS.__db_path + "\img\img_" + str(DBMS.__cur_id) + ".png"
+        print(photo_path)
         cv2.imwrite(photo_path, frame)
         DBMS.__sql.execute("INSERT INTO RoadPits VALUES (?,?,?,?,?)",(DBMS.__cur_id, photo_path, time, gps, 1))
         DBMS.__db.commit()
