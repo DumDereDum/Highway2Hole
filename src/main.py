@@ -4,6 +4,7 @@ import cv2 as cv
 
 from DBMS.DBMS import *
 from functions.time_location import *
+from map_painting.map.Map import *
 
 # Preparation
 script_location = os.path.split(os.path.realpath(sys.argv[0]))[0]
@@ -18,17 +19,17 @@ terminal_command = script_location + "\\model\\Build\\Release\\OV_proj.exe" \
 # Pipline
 
 ## Model
-print("<=== Model Run===>")
-os.system(terminal_command)
+print("\n<=== Model Run===>")
+#os.system(terminal_command)
 
 ## Matching
-print("<=== Matching ===>")
+print("\n<=== Matching ===>")
 start_date = get_start_date()
 arr = get_times(start_date, script_location + "\logs\\log.txt")
 
 ## DBMS
-print("<=== DBMS ===>")
-db = DBMS(script_location+'\\DBMS')
+print("\n<=== DBMS ===>")
+db = DBMS_(script_location+'\\DBMS')
 
 vidcap = cv2.VideoCapture(script_location + "\\logs\\out.avi")
 # compute first 1000 frames
@@ -43,7 +44,11 @@ for i in range(1000):
         holes_counter += 10
 
 
-
+## Map Painting
+print("\n<=== Map Painting ===>")
 potholes = db.get_new_potholes()
 # potholes ~ [img, ID, PHOTO_PATH, TIME, GPS_LAT, GPS_LON, IS_NEW]
-#print(potholes[0][1:])
+map = Map(script_location + "\\map_painting\\map")
+map.update_map(potholes)
+
+

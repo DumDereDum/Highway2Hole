@@ -6,29 +6,23 @@ from DBMS import *
 
 
 class Map:
-    def __init__(self):
-        self.path_to_data = './data.json'
+    def __init__(self, path):
+        self.path_to_data = path + "\\data.json"
 
     def create_map(self):
         pass
 
     def update_map(self, potholes):
+        # potholes ~ [img, ID, PHOTO_PATH, TIME, GPS_LAT, GPS_LON, IS_NEW]
         data_file = open(self.path_to_data, "r")
         data = json.load(data_file)
 
         for pothole in potholes:
             json_data = {
-                'time': {
-                    'day': -1,
-                    'month': -1,
-                    'year': -1,
-                    'hour': -1,
-                    'minutes': -1,
-                    'seconds': -1
-                },
+                'time': pothole[3],
                 'location': {
-                    'latitude': -1,
-                    'longitude': -1
+                    'latitude': pothole[-2],
+                    'longitude': pothole[-1]
                 }
             }
             ##
