@@ -44,6 +44,13 @@ def find_gps(date, file_name):
             return data['location']
 
 
+def convert_date(date):
+    str_date = [str(date['day']), str(date['month']), str(date['year'])]
+    str_time = [str(date['hour']), str(date['minutes']), str(date['seconds'])]
+    return '.'.join(str_date) + ' ' + ':'.join(str_time)
+
+
 start_date = get_start_date()
 arr = get_times(start_date)
+print(convert_date(arr[0][1]))
 print(find_gps(arr[0][1], 'Jul_15_2021_7_38_22_PM.json'))
