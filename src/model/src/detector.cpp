@@ -69,18 +69,16 @@ std::vector<DetectionObject> Detector::getDetections(const cv::Mat &image)
     // TODO: Output processing
     for (int det_id = 0; det_id < out_blob_h; ++det_id)
     {
-        const int imageID   = 0;
-        const int classID   = 0;
-        const double score  = 0;
-        const double x0     = 0;
-        const double y0     = 0;
-        const double x1     = 0;
-        const double y1     = 0;
-	if (score > threshold)
-	{
-            DetectionObject det(classID, score, x0, y0, x1, y1);
-            detectedObjects.push_back(det);
-	}
+        const int start_pos = det_id * out_blob_w;
+        const int imageID = data_[start_pos];
+        const int classID = data_[start_pos + 1];
+        const double score = std::min(std::max(0.0f, data_[start_pos + 2]), 1.0f);
+        const double x0 = std::min(std::max(0.0f, data_[start_pos + 3]), 1.0f) * width_;
+        const double y0 = std::min(std::max(0.0f, data_[start_pos + 4]), 1.0f) * height_;
+        const double x1 = std::min(std::max(0.0f, data_[start_pos + 5]), 1.0f) * width_;
+        const double y1 = std::min(std::max(0.0f, data_[start_pos + 6]), 1.0f) * height_;
+        DetectionObject det(classID, score, x0, y0, x1, y1);
+        detectedObjects.push_back(det);
     }
     return detectedObjects;
 }

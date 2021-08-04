@@ -9,22 +9,25 @@ from functions.time_location import *
 script_location = os.path.split(os.path.realpath(sys.argv[0]))[0]
 print(script_location)
 
-terminal_command = script_location + "\model\Release\OV_proj.exe" \
-    + " --m=\"" + script_location + "\model\data\"" \
-    + " --v=\"" + script_location + "\model\data\short.mp4\"" \
-    + " --o=\"" + script_location + "\logs\""
+terminal_command = script_location + "\\model\\Build\\Release\\OV_proj.exe" \
+    + " --m=\"" + script_location + "\\model\\data\"" \
+    + " --v=\"" + script_location + "\\model\\data\\short.mp4\"" \
+    + " --o=\"" + script_location + "\\logs\""
 
 
 # Pipline
 
 ## Model
-#os.system(terminal_command)
+print("<=== Model Run===>")
+os.system(terminal_command)
 
 ## Matching
+print("<=== Matching ===>")
 start_date = get_start_date()
 arr = get_times(start_date, script_location + "\logs\\log.txt")
 
 ## DBMS
+print("<=== DBMS ===>")
 db = DBMS(script_location+'\\DBMS')
 
 vidcap = cv2.VideoCapture(script_location + "\\logs\\out.avi")
