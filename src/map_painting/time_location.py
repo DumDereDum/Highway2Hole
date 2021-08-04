@@ -22,12 +22,12 @@ def get_times(start_date, log_name="log.txt", fps=30):
     frame_times = []
     for seconds in frame_seconds:
         date = {'day': 0, 'month': 0, 'year': 0, 'hour': 0, 'minutes': 0, 'seconds': 0}
-        date['seconds'] = seconds % 60
-        date['minutes'] = seconds // 60 % 60
-        date['hour'] = seconds // 3600 % 24
-        date['day'] = seconds // 86400 % 30
-        date['month'] = seconds // 2592000 % 12
-        date['year'] = seconds // 31104000
+        date['seconds'] = int(seconds % 60)
+        date['minutes'] = int(seconds // 60 % 60)
+        date['hour'] = int(seconds // 3600 % 24)
+        date['day'] = int(seconds // 86400 % 30)
+        date['month'] = int(seconds // 2592000 % 12)
+        date['year'] = int(seconds // 31104000)
         frame_times.append(date)
     for time in frame_times:
         for key in time.keys():
@@ -45,7 +45,5 @@ def find_gps(date, file_name):
 
 
 start_date = get_start_date()
-print(start_date)
 arr = get_times(start_date)
-print(arr)
 print(find_gps(arr[0][1], 'Jul_15_2021_7_38_22_PM.json'))
