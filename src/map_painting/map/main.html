@@ -7,9 +7,15 @@
     </script>
     <script type="text/javascript" src="data.json"></script>
     <script type="text/javascript">
-        
-        var mydata = JSON.parse(data);        
-        
+        function readTextFile(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.send(null);
+            return rawFile.responseText;
+        }
+        var string = readTextFile('data.json')
+        var mydata = JSON.parse(string);
         
         ymaps.ready(init);
 
