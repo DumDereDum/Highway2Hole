@@ -1,4 +1,12 @@
 import json
+import os
+
+
+def get_start_date(video_name='FILE20210715-194316-004604.MP4'):
+    date = video_name.split('-')[0][4:]
+    time = video_name.split('-')[1]
+    date_dict = {'day': int(date[6:]), 'month': int(date[4:6]), 'year': int(date[:4]), 'hour': int(time[:2]), 'minutes': int(time[2:4]), 'seconds': int(time[4:])}
+    return date_dict
 
 
 def get_times(start_date, log_name="log.txt", fps=30):
@@ -34,3 +42,10 @@ def find_gps(date, file_name):
     for data in json_dict:
         if (data['time']['day'] == date['day']) and (data['time']['month'] == date['month']) and (data['time']['year'] == date['year']) and (data['time']['hour'] == date['hour']) and ((abs(data['time']['minutes'] - date['minutes']) <= 1) or ((abs(data['time']['seconds'] - date['seconds']) <= 40) and (data['time']['minutes'] == date['minutes']))):
             return data['location']
+
+
+start_date = get_start_date()
+print(start_date)
+arr = get_times(start_date)
+print(arr)
+print(find_gps(arr[0][1], 'Jul_15_2021_7_38_22_PM.json'))
