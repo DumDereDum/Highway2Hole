@@ -40,7 +40,12 @@ def find_gps(date, file_name):
     with open(file_name, 'r') as gps_json:
         json_dict = json.load(gps_json)
     for data in json_dict:
-        if (data['time']['day'] == date['day']) and (data['time']['month'] == date['month']) and (data['time']['year'] == date['year']) and (data['time']['hour'] == date['hour']) and ((abs(data['time']['minutes'] - date['minutes']) <= 1) or ((abs(data['time']['seconds'] - date['seconds']) <= 40) and (data['time']['minutes'] == date['minutes']))):
+        if (data['time']['day'] == date['day']) \
+        and (data['time']['month'] == date['month']) \
+        and (data['time']['year'] == date['year']) \
+        and (data['time']['hour'] + 3 == date['hour']) \
+        and (abs(data['time']['minutes'] == date['minutes'])) \
+        and (abs(data['time']['seconds'] - (date['seconds'] + 15)) <= 2):
             return data['location']
 
 
@@ -49,8 +54,8 @@ def convert_date(date):
     str_time = [str(date['hour']), str(date['minutes']), str(date['seconds'])]
     return '.'.join(str_date) + ' ' + ':'.join(str_time)
 
-
-start_date = get_start_date()
-arr = get_times(start_date)
-print(convert_date(arr[0][1]))
-print(find_gps(arr[0][1], 'Jul_15_2021_7_38_22_PM.json'))
+if __name__ == '__main__':
+    start_date = get_start_date()
+    arr = get_times(start_date)
+    print(convert_date(arr[0][1]))
+    print(find_gps(arr[0][1], 'Jul_15_2021_7_38_22_PM.json'))
