@@ -20,7 +20,7 @@ terminal_command = script_location + "\\model\\Build\\Release\\OV_proj.exe" \
 
 ## Model
 print("\n<=== Model Run===>")
-#os.system(terminal_command)
+os.system(terminal_command)
 
 ## Matching
 print("\n<=== Matching ===>")
