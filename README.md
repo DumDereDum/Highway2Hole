@@ -10,7 +10,7 @@ When we are talking about automobiles we must not forget about roads and their e
 
 ## Methodology / Approach
 
-Highway2Hole uses Intel OpenVINO™’ for inference of model which finds defects on the roads. It uses pre-trained model yolov3-road-damage-detection. Firstly, the user takes the video and GPS data from the car. Then model finds frames with road damage and logs them. After all, logs are ready, the program matches frames and locations and pushes them to the database. Information from db is used later to mark potholes on the map.
+Highway2Hole uses Intel OpenVINO™’ for inference of model which finds defects on the roads. It uses pre-trained model yolov3-road-damage-detection. Firstly, the user takes the video and GPS data from the car. Then model finds frames with road damage and logs them. After all logs are ready, the program matches frames and locations and pushes them to the database. Information from db is used later to mark potholes on the map.
 
 Solving tasks of object detection is implemented in the separate class named Detector. This class was created due to Open Model Zoo and OpenVino IE class organization approach. The pipeline is shown below:
 
