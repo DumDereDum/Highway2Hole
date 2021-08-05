@@ -42,7 +42,6 @@ Functions:
 
 Functions:
 
-* **create_map()** - create map
 * **update( potholes )** - update map with dots
   *   ***potholes*** - the result of function **get_new_potholes()**
 * **render()** - render current map as image
@@ -52,3 +51,23 @@ Functions:
 ### FUNCTIONS
 
 Folder with auxiliary function which are needed for getting data, preparing for work and etc.
+
+## Running manual:
+
+```console
+$ git clone https://github.com/DumDereDum/Highway2Hole.git
+$ cd Highway2Hole/src/model/
+$ mkdir build
+$ cd build
+$ cmake ..
+```
+
+Then build target `OV_proj` in Release.
+
+```console
+$ cd ..; cd ..
+$ python -m http.server
+$ python main.py
+```
+
+After that, open http://localhost:8000/map_painting/map/main.html
